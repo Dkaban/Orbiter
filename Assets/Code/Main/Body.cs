@@ -57,9 +57,9 @@ public class Body : MonoBehaviour
 
     private void Gravity()
     {
-        float m1 = this.GetComponent<Rigidbody>().mass;
-        float m2 = CurrentStar.GetComponent<Rigidbody>().mass;
-        float r = Vector3.Distance(transform.position, CurrentStar.transform.position);
+        var m1 = GetComponent<Rigidbody>().mass;
+        var m2 = CurrentStar.GetComponent<Rigidbody>().mass;
+        var r = Vector3.Distance(transform.position, CurrentStar.transform.position);
                     
         GetComponent<Rigidbody>().AddForce((CurrentStar.transform.position - transform.position).normalized *
                                              (SolarSystem.Instance.G * (m1 * m2) / (r * r)));
@@ -67,8 +67,8 @@ public class Body : MonoBehaviour
     
     void InitialVelocity()
     {
-        float m2 = CurrentStar.GetComponent<Rigidbody>().mass;
-        float r = Vector3.Distance(transform.position, CurrentStar.transform.position);
+        var m2 = CurrentStar.GetComponent<Rigidbody>().mass;
+        var r = Vector3.Distance(transform.position, CurrentStar.transform.position);
         transform.LookAt(CurrentStar.transform);
 
         GetComponent<Rigidbody>().velocity += transform.right * Mathf.Sqrt((SolarSystem.Instance.G * m2) / r);
@@ -76,7 +76,7 @@ public class Body : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     private void RandomizeTrailRendererColor()

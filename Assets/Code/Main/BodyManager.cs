@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class BodyManager : MonoBehaviour
 {
-    public GameObject bodyPrefab;
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -12,7 +10,13 @@ public class BodyManager : MonoBehaviour
             
             if (Physics.Raycast(ray, out var hit))
             {
-                Instantiate(bodyPrefab, hit.point, Quaternion.identity);
+                var temp = ObjectPool.SharedInstance.GetPooledObject();
+                if (temp != null)
+                {
+                    temp.transform.position = hit.point;
+                    temp.transform.rotation = Quaternion.identity;
+                    temp.SetActive(true);
+                }
             }
         }
     }
